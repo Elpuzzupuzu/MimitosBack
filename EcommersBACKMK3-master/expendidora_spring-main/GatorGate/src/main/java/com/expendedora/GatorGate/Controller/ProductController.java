@@ -1,7 +1,10 @@
 package com.expendedora.GatorGate.Controller;
 
+import com.expendedora.GatorGate.Model.Category;
 import com.expendedora.GatorGate.Model.Product;
 import com.expendedora.GatorGate.Model.ProductDTO;
+import com.expendedora.GatorGate.Model.ProductRequest;
+import com.expendedora.GatorGate.Service.CategoryService;
 import com.expendedora.GatorGate.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +21,8 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+   @Autowired
+    private CategoryService categoryService;
 
     // Método para crear un nuevo producto
     @PostMapping("/create")
@@ -25,6 +30,30 @@ public class ProductController {
         Product createdProduct = productService.createProduct(product);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
+
+    @PostMapping("/create2")
+    public ResponseEntity<Product> createProduct2(@RequestBody ProductRequest product) {
+
+        Product p= new Product();
+        p.setImg(product.getImg());
+        p.setName(product.getName());
+        p.setDescription(product.getDescription());
+        p.setPrice(product.getPrice());
+        p.setStock(product.getStock());
+
+        long id_category=product.getId_category();
+        Category category = categoryService.getCategoryById(id_category);
+
+        p.setCategory(category);
+        Product createdProduct=productService.createProduct(p);
+
+
+        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+    }
+
+
+
+
 
     @PostMapping("/purchase")
     public ResponseEntity<String> purchaseProducts(@RequestBody List<ProductDTO> products) {

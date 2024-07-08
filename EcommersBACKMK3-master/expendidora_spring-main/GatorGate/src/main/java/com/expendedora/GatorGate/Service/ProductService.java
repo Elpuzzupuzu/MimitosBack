@@ -2,6 +2,7 @@ package com.expendedora.GatorGate.Service;
 
 import com.expendedora.GatorGate.Model.Product;
 import com.expendedora.GatorGate.Model.ProductDTO;
+import com.expendedora.GatorGate.Model.ProductRequest;
 import com.expendedora.GatorGate.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,4 +43,6 @@ public class ProductService {
     public Product createProduct(Product product) {
         return productRepository.save(product);
     }
+
+
 }
