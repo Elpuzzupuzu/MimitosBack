@@ -24,6 +24,27 @@ public class ProductController {
    @Autowired
     private CategoryService categoryService;
 
+   ////-------------------------------------------///////////////
+
+    // ProductController.java
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductRequest productRequest) {
+        Product updatedProduct = productService.updateProduct(id, productRequest);
+        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+    }
+
+
+
+
+
+
+
+
+
+
+
+   ///////////--- testing
+
     // Método para crear un nuevo producto
     @PostMapping("/create")
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
